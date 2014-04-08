@@ -23,8 +23,8 @@ var myexpress = function() {
 		var index = 0;
 		var	stack = this.stack;
 
-      function next(err) {
-	      var layer = stack[index++];
+    function next(err) {
+	    var layer = stack[index++];
 			if(!layer) {
 				if(out) {
 					return out(err);
@@ -40,27 +40,27 @@ var myexpress = function() {
         }
         return;
 			} 
-				try {
-          if (!layer.match(req.url))
-            return next(err);
-					var arity = layer.handle.length;
-					if (err) {
-						if (arity == 4) {
-							layer.handle(err,req,res,next);
+			try {
+        if (!layer.match(req.url))
+          return next(err);
+				var arity = layer.handle.length;
+				  if (err) {
+					  if (arity == 4) {
+						  layer.handle(err,req,res,next);
 						} else {
-							next(err);
+							  next(err);
 						}
 					} else if (arity < 4) {
-						layer.handle(req,res,next);
+						  layer.handle(req,res,next);
 					} else {
 						next();
 					}
-				} catch(e) {
-					next(e);
+			 } catch(e) {
+				   next(e);
 				}
 	    }
 	    next();
-	}
+	 }
 
 	return app;
 }
